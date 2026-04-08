@@ -1,0 +1,9 @@
+{
+	"name": "dataenginerringdbt",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "389aa970-60e3-45f3-b32c-f88f30e86342",
+		"tenantId": "6b352a35-93d7-4a5e-9506-e3c7abcf9876"
+	}
+}
