@@ -6,6 +6,7 @@
 				"name": "ForEach_file",
 				"type": "ForEach",
 				"dependsOn": [],
+				"userProperties": [],
 				"typeProperties": {
 					"items": {
 						"value": "@pipeline().parameters.loop_input",
@@ -316,6 +317,35 @@
 							}
 						}
 					]
+				}
+			},
+			{
+				"name": "Alerts",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "ForEach_file",
+						"dependencyConditions": [
+							"Failed",
+							"Skipped"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-19.centralindia.logic.azure.com:443/workflows/26c921b8640941559d9762f231cfba46/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=E0TrJjHJ7j75tMAJOZ6V_jqQT-8VEc10OjwceEAntig",
+					"body": {
+						"value": "{\n  \"pipeline_name\": @()pipeline().Pipeline,\n  \"pipeline_runId\": @()pipeline().RunId\n}",
+						"type": "Expression"
+					}
 				}
 			}
 		],
